@@ -2,3 +2,5 @@ node_modules
 .nitro
 .output
 dist
+server/public
+server/assets

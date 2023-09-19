@@ -4,14 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "play": "pnpm -C server dev"
+    "stub": "pnpm -C packages/node stub",
+    "dev:client": "pnpm -C packages/client dev",
+    "dep:up": "taze -I major"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@antfu/eslint-config": "^0.42.1",
+    "@vitejs/plugin-vue": "^4.2.3",
     "eslint": "^8.49.0",
-    "typescript": "^5.2.2"
+    "pathe": "^1.1.1",
+    "typescript": "^5.2.2",
+    "unbuild": "^2.0.0",
+    "unocss": "^0.55.7",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.4.5",
+    "vue": "^3.3.4"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.4.1",
+    "sirv": "^2.0.3"
   }
 }

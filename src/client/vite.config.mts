@@ -4,6 +4,8 @@ import Components from "unplugin-vue-components/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Vue from "@vitejs/plugin-vue";
 import Unocss from "unocss/vite";
+import Pinceau from "pinceau/vite";
+import PinceauViewer from "../node";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +29,9 @@ export default defineConfig({
       imports: ["vue", "@vueuse/core"],
     }),
     Unocss(),
+    PinceauViewer({
+      designTokenDir: join(__dirname, "./.nuxt/pinceau/"),
+    }),
   ],
   build: {
     target: "esnext",

@@ -3,8 +3,11 @@ import sirv from "sirv";
 import { Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import pico from "picocolors";
 import { join } from "pathe";
+import { dset } from "dset";
+import { createRPCServer } from "vite-dev-rpc";
 import { DIR_CLIENT } from "../dir";
 import { parseAst, visitAst } from "../ast";
+import { DesignTokenMap, RPCFunctions } from "../types";
 
 const PLUGIN_NAME = "vite-plugin-pinceau-viewer";
 
@@ -16,6 +19,7 @@ export default function PluginPinceauViewer(options: Options) {
   const { designTokenDir } = options;
 
   let config: ResolvedConfig;
+
   function createPinceauServer(server: ViteDevServer) {
     const base = server.config.base || "/";
     server.middlewares.use(
@@ -25,6 +29,7 @@ export default function PluginPinceauViewer(options: Options) {
         dev: true,
       })
     );
+
     const _print = server.printUrls;
     server.printUrls = () => {
       let host = `${config.server.https ? "https" : "http"}://localhost:${
@@ -56,10 +61,12 @@ export default function PluginPinceauViewer(options: Options) {
       );
     };
   }
+
   async function findPinceauDesignToken() {
     const deignTokenPath = join(designTokenDir, "index.ts");
     const content = await readFile(deignTokenPath, "utf-8");
-    const keys: string[] = [];
+    const result = {};
+    let rootKeyName = "";
     visitAst(parseAst(content), {
       visitExportNamedDeclaration(path) {
         const declaration = path.node.declaration;
@@ -69,12 +76,20 @@ export default function PluginPinceauViewer(options: Options) {
           if (variableName === "theme") {
             return this.traverse(path, {
               visitObjectProperty(path: any) {
-                console.log(
-                  path.value.key.name,
-                  path.value.value.value,
-                  path?.parentPath?.parentPath?.parentPath?.value?.key?.name
-                );
-                keys.push(path.value.key.name);
+                const key = path.value.key.name;
+                const value = path.value.value.value;
+                const parentKey =
+                  path?.parentPath?.parentPath?.parentPath?.value?.key?.name;
+                if (key && !value && !parentKey) {
+                  rootKeyName = key;
+                  dset(result, key, {});
+                }
+                if (key && !value && parentKey) {
+                  dset(result, `${parentKey}.${key}`, {});
+                }
+                if (key && value && parentKey) {
+                  dset(result, `${rootKeyName}.${parentKey}.${key}`, value);
+                }
                 return this.traverse(path);
               },
             });
@@ -83,7 +98,24 @@ export default function PluginPinceauViewer(options: Options) {
         return false;
       },
     });
-    console.log(keys);
+    return result;
+  }
+
+  function createPinceauRpc(
+    server: ViteDevServer,
+    designTokenMap: DesignTokenMap
+  ) {
+    createRPCServer<RPCFunctions>("vite-plugin-pinceau-viewer", server.ws, {
+      token() {
+        return designTokenMap;
+      },
+    });
+  }
+
+  async function initPinceauViewer(server: ViteDevServer) {
+    const designTokenMap = await findPinceauDesignToken();
+    createPinceauServer(server);
+    createPinceauRpc(server, designTokenMap);
   }
 
   const plugin = <Plugin>{
@@ -96,8 +128,7 @@ export default function PluginPinceauViewer(options: Options) {
       config = _config;
     },
     configureServer(server) {
-      findPinceauDesignToken();
-      createPinceauServer(server);
+      initPinceauViewer(server);
     },
   };
 

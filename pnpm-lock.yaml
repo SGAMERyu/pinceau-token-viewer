@@ -57,6 +57,12 @@ importers:
       vite:
         specifier: ^4.4.5
         version: 4.4.9
+      vite-dev-rpc:
+        specifier: ^0.1.2
+        version: 0.1.2(vite@4.4.9)
+      vite-hot-client:
+        specifier: ^0.2.2
+        version: 0.2.2(vite@4.4.9)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -1980,6 +1986,10 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /birpc@0.2.14:
+    resolution: {integrity: sha512-37FHE8rqsYM5JEKCnXFyHpBCzvgHEExwVVTq+nUmloInU7l8ezD1TpOhKpS8oe1DTYFqEK27rFZVKG43oTqXRA==}
     dev: true
 
   /boolbase@1.0.0:
@@ -4720,6 +4730,24 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /vite-dev-rpc@0.1.2(vite@4.4.9):
+    resolution: {integrity: sha512-tjW7jd5KQ4bXpGAErpw3qfLfryYs/lH4W/2gvHsWyHtYbF/O+iB7Kp99y0+3/Dc9/pFH7QcKsoHpOCqfGVhG4Q==}
+    peerDependencies:
+      vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0-0
+    dependencies:
+      birpc: 0.2.14
+      vite: 4.4.9
+      vite-hot-client: 0.2.2(vite@4.4.9)
+    dev: true
+
+  /vite-hot-client@0.2.2(vite@4.4.9):
+    resolution: {integrity: sha512-iLBQWEJqcEvK1tx2glmQH1tq91zyN9eYC6Sfk+7aRM2he31W/UE4X5yOL4lP/cVQPPparg0ggjHcoNx4x/NNxQ==}
+    peerDependencies:
+      vite: ^2.6.0 || ^3.0.0 || ^4.0.0
+    dependencies:
+      vite: 4.4.9
     dev: true
 
   /vite@4.4.9:

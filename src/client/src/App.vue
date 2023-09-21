@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import { rpc } from "./logic";
+
+async function refresh() {
+  const token = await rpc.token();
+  console.log(token);
+}
+
+refresh();
 </script>
 
 <template>

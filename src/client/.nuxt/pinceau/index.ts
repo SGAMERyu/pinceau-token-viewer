@@ -5,6 +5,38 @@ export const theme = {
       variable: "var(--media-sm)",
       raw: "(min-width: 640px)",
     },
+    md: {
+      value: "(min-width: 768px)",
+      variable: "var(--media-md)",
+      raw: "(min-width: 768px)",
+    },
+    lg: {
+      value: "(min-width: 1024px)",
+      variable: "var(--media-lg)",
+      raw: "(min-width: 1024px)",
+    },
+    xl: {
+      value: "(min-width: 1280px)",
+      variable: "var(--media-xl)",
+      raw: "(min-width: 1280px)",
+    },
+    xxl: {
+      value: "(min-width: 1536px)",
+      variable: "var(--media-xxl)",
+      raw: "(min-width: 1536px)",
+    },
+  },
+  font: {
+    primary: {
+      value: "Inter, sans-serif",
+      variable: "var(--font-primary)",
+      raw: "Inter, sans-serif",
+    },
+    secondary: {
+      value: "PaytoneOne, serif",
+      variable: "var(--font-secondary)",
+      raw: "PaytoneOne, serif",
+    },
   },
 } as const;
 

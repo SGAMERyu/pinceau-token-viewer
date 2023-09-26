@@ -1,6 +1,16 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-import 'uno.css'
+import { createApp } from "vue";
+import { createWebHistory, createRouter } from "vue-router/auto";
+import App from "./App.vue";
 
-createApp(App).mount('#app')
+import "uno.css";
+
+const router = createRouter({
+  history: createWebHistory(),
+  extendRoutes: (routes) => {
+    return routes;
+  },
+});
+
+const app = createApp(App);
+app.use(router);
+app.mount("#app");

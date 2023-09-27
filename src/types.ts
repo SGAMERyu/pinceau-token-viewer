@@ -1,5 +1,5 @@
 export interface RPCFunctions {
-  token(): () => DesignTokenMap;
+  token: () => Promise<DesignTokenMap>;
 }
 
 export interface DesignToken {

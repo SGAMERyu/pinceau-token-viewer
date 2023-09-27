@@ -1,17 +1,34 @@
 <template>
+  <header>
+    <h1 class="font-extrabold text-slate-900 text-2xl sm:text-3xl">
+      Pinceau Token viewer
+    </h1>
+  </header>
   <div class="flex w-full">
-    <nav class="w-200px">菜单</nav>
+    <nav class="w-200px list-none">
+      <li
+        v-for="name in tokenNameList"
+        :key="name"
+        class="mb-4 lg:text-sm hover:text-sky-500 cursor-pointer"
+        :class="[
+          activeRoute === name
+            ? 'text-sky-500 font-semibold'
+            : 'text-slate-700',
+        ]"
+        @click="() => routeToToken(name)"
+      >
+        {{ name }}
+      </li>
+    </nav>
     <section class="flex-1"><RouterView /></section>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { rpc } from "./logic";
+import { useToken, useTokenRouter } from "./logic";
 
-async function init() {
-  const res = await rpc.token();
-  console.log(res);
-}
+const { tokenNameList, fetchToken } = useToken();
+const { activeRoute, routeToToken } = useTokenRouter();
 
-init();
+fetchToken();
 </script>

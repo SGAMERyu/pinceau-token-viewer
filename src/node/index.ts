@@ -66,7 +66,7 @@ export default function PluginPinceauViewer(options: Options) {
     const deignTokenPath = join(designTokenDir, "index.ts");
     const content = await readFile(deignTokenPath, "utf-8");
     const result = {};
-    let rootKeyName = "";
+    let treeNodeNames: string[] = [];
     visitAst(parseAst(content), {
       visitExportNamedDeclaration(path) {
         const declaration = path.node.declaration;
@@ -76,19 +76,27 @@ export default function PluginPinceauViewer(options: Options) {
           if (variableName === "theme") {
             return this.traverse(path, {
               visitObjectProperty(path: any) {
-                const key = path.value.key.name;
+                const key = path.value.key.value;
                 const value = path.value.value.value;
                 const parentKey =
-                  path?.parentPath?.parentPath?.parentPath?.value?.key?.name;
-                if (key && !value && !parentKey) {
-                  rootKeyName = key;
-                  dset(result, key, {});
-                }
-                if (key && !value && parentKey) {
-                  dset(result, `${parentKey}.${key}`, {});
+                  path?.parentPath?.parentPath?.parentPath?.value?.key?.value;
+                if (key && !value) {
+                  if (parentKey) {
+                    let index = treeNodeNames.indexOf(parentKey);
+                    if (index > -1) {
+                      treeNodeNames.splice(
+                        index + 1,
+                        treeNodeNames.length - index
+                      );
+                      treeNodeNames.push(key);
+                    }
+                  } else {
+                    treeNodeNames = [key];
+                  }
+                  dset(result, `${treeNodeNames.join(".")}`, {});
                 }
                 if (key && value && parentKey) {
-                  dset(result, `${rootKeyName}.${parentKey}.${key}`, value);
+                  dset(result, `${treeNodeNames.join(".")}.${key}`, value);
                 }
                 return this.traverse(path);
               },

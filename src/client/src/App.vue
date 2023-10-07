@@ -25,10 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useToken, useTokenRouter } from "./logic";
+import { useTokenRouter, tokenNameList } from "./logic";
 
-const { tokenNameList, fetchToken } = useToken();
 const { activeRoute, routeToToken } = useTokenRouter();
-
-fetchToken();
 </script>

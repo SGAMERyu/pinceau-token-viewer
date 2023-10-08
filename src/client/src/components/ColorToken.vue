@@ -4,14 +4,11 @@
       <div class="color-container">
         <div
           class="color-item"
-          :style="{ backgroundColor: props.token.value as string }"
+          :style="{ backgroundColor: props.token.raw as string }"
         ></div>
         <div class="px-0.5">
-          <div class="color-title">
-            {{ token.variable }}
-          </div>
           <div class="color-value">
-            {{ token.value }}
+            {{ token.raw }}
           </div>
         </div>
       </div>
@@ -20,10 +17,23 @@
       <div
         class="grid mt-3 grid-cols-1 sm:grid-cols-11 gap-y-3 gap-x-2 sm:mt-2 2xl:mt-0"
       >
-        <div class="relative flex">
+        <div
+          class="relative flex"
+          v-for="(token, key) in props.token as Record<string, DesignToken>"
+        >
           <div class="color-container">
-            <div class="color-item"></div>
-            <div class="px-0.5"></div>
+            <div
+              class="color-item"
+              :style="{ backgroundColor: parseColor(refToken, token.raw) }"
+            ></div>
+            <div class="px-0.5">
+              <div class="color-title">
+                {{ key }}
+              </div>
+              <div class="color-value">
+                {{ parseColor(refToken, token.raw) }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -33,9 +43,10 @@
 
 <script setup lang="ts">
 import { DesignToken } from "../../../types";
+import { parseColor, refToken } from "../logic";
 
 interface Props {
-  token: DesignToken | { [k: string]: DesignToken };
+  token: DesignToken | Record<string, DesignToken>;
 }
 
 const props = defineProps<Props>();

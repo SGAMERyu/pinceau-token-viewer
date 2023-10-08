@@ -8,6 +8,11 @@ export interface DesignToken {
   variable: string;
 }
 
+export interface TokenMode {
+  initial: string;
+  dark: string;
+}
+
 export interface DesignTokenMap {
   [k: string]: {
     [k: string]: DesignToken;

@@ -1,57 +1,62 @@
 <template>
-  <div>
-    <template v-if="hasTokenValue">
-      <div class="color-container">
+  <ul class="list-none flex flex-col gap-8">
+    <li v-for="(token, key) in colorToken">
+      <h2
+        class="token-name"
+      >
+        {{ key }}
+    </h2>
+      <template v-if="hasTokenValue(token)">
         <div
-          class="color-item"
-          :style="{ backgroundColor: props.token.raw as string }"
-        ></div>
-        <div class="px-0.5">
-          <div class="color-value">
-            {{ token.raw }}
+          class="flex flex-col md:flex-row overflow-hidden relative md:space-x-1 space-y-1 md:space-y-0 rounded-lg"
+        >
+          <div
+            class="h-14 md:h-36 w-full rounded-lg p-2 md:p-4 flex justify-center flex-col relative"
+            :style="{ backgroundColor: token.raw as string }"
+          >
+            <div
+              class="px-4 md:px-0 md:mt-auto cursor-pointer flex items-center justify-between md:block"
+            >
+              <div>{{ token.raw }}</div>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-    <template v-else>
-      <div
-        class="grid mt-3 grid-cols-1 sm:grid-cols-11 gap-y-3 gap-x-2 sm:mt-2 2xl:mt-0"
-      >
+      </template>
+      <template v-else>
         <div
-          class="relative flex"
-          v-for="(token, key) in props.token as Record<string, DesignToken>"
+          class="grid mt-3 grid-cols-1 sm:grid-cols-11 gap-y-3 gap-x-2 sm:mt-2 2xl:mt-0"
         >
-          <div class="color-container">
+          <div
+            class="flex flex-col md:flex-row overflow-hidden relative md:space-x-1 space-y-1 md:space-y-0 rounded-lg"
+            v-for="(value, key) in (token as any as Record<string, DesignToken>)"
+          >
             <div
-              class="color-item"
-              :style="{ backgroundColor: parseColor(refToken, token.raw) }"
-            ></div>
-            <div class="px-0.5">
-              <div class="color-title">
-                {{ key }}
-              </div>
-              <div class="color-value">
-                {{ parseColor(refToken, token.raw) }}
+              class="h-14 md:h-36 w-full rounded-lg p-2 md:p-4 flex justify-center flex-col relative"
+              :style="{ backgroundColor: parseColor(refToken, value.raw) }"
+            >
+              <div
+                class="px-4 md:px-0 md:mt-auto cursor-pointer flex items-center justify-between md:block text-sm"
+              >
+                <div>{{ key }}</div>
+                <div>{{ parseColor(refToken, value.raw) }}</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </template>
-  </div>
+      </template>
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
 import { DesignToken } from "../../../types";
 import { parseColor, refToken } from "../logic";
 
-interface Props {
-  token: DesignToken | Record<string, DesignToken>;
-}
-
-const props = defineProps<Props>();
-
-const hasTokenValue = computed(() => {
-  return Reflect.has(props.token, "value");
+const colorToken = computed(() => {
+  return refToken.value.color || {};
 });
+
+function hasTokenValue(token: DesignToken) {
+  return Reflect.has(token, "value");
+}
 </script>

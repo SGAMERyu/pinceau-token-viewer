@@ -4,28 +4,16 @@
       Pinceau Token viewer
     </header>
     <div class="flex w-full">
-      <nav class="w-200px list-none">
-        <li
-          v-for="name in tokenNameList"
-          :key="name"
-          class="mb-4 lg:text-sm hover:text-sky-500 cursor-pointer"
-          :class="[
-            activeRoute === name
-              ? 'text-sky-500 font-semibold'
-              : 'text-slate-700',
-          ]"
-          @click="() => routeToToken(name)"
-        >
-          {{ name }}
-        </li>
-      </nav>
-      <section class="flex-1"><RouterView /></section>
+      <TokenNav />
+      <TokenList />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useTokenRouter, tokenNameList } from "./logic";
+import { fetchToken } from "./logic";
+import TokenNav from "./components/TokenNav.vue";
+import TokenList from "./components/TokenList.vue";
 
-const { activeRoute, routeToToken } = useTokenRouter();
+fetchToken();
 </script>

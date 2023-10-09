@@ -6,7 +6,7 @@
       >
         {{ key }}
       </div>
-      <ColorToken :token="tokenMap[key]"></ColorToken>
+      <Component :is="TokenComponentMap[activeRoute]" :token="tokenMap[key]"></Component>
     </li>
   </ul>
 </template>
@@ -14,6 +14,12 @@
 <script lang="ts" setup>
 import { refToken, useTokenRouter } from "../logic";
 import ColorToken from "../components/ColorToken.vue";
+import FontToken from "../components/FontToken.vue";
+
+const TokenComponentMap: Record<string, any> = {
+  color: ColorToken,
+  font: FontToken,
+};
 
 const { activeRoute } = useTokenRouter();
 

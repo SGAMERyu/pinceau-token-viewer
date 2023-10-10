@@ -416,7 +416,7 @@ export const theme = {
     "xs": {
       "value": "0 1px 2px 0 var(--color-grey-800)",
       "variable": "var(--shadow-xs)",
-      "raw": "0 1px 2px 0 {color.grey.800}"
+      "raw": "0 3px 10px rgb(0,0,0,0.2);"
     },
     "sm": {
       "value": "0 1px 2px -1px var(--color-grey-800), 0 1px 3px 0 var(--color-grey-800)",

@@ -13,9 +13,11 @@
 import ColorToken from "./ColorToken.vue";
 import FontToken from "./FontToken.vue";
 import { tokenNameList } from "../logic";
+import ShadowToken from "./ShadowToken.vue";
 
 const TOKEN_COMPONENT_MAP: any = {
   color: ColorToken,
   font: FontToken,
+  shadow: ShadowToken,
 };
 </script>

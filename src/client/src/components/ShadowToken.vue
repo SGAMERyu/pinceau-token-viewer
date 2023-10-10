@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-8">
+  <div class="flex gap-8 flex-wrap">
     <div
       v-for="(token, key) in shadowToken"
       class="w-24 h-24 rounded-lg bg-white flex justify-center items-center"

@@ -19,7 +19,8 @@ export default defineConfig({
   ],
   shortcuts: {
     "token-name":
-      "text-lg flex-grow text-slate-900 text-center md:text-left mb-2",
-  },
+      "font-medium text-lg text-slate-500 font-mono mb-3 dark:text-slate-400",
+    "token-value": "text-sm text-slate-9 font-mono"
+    },
   transformers: [transformerDirectives(), transformerVariantGroup()],
 });

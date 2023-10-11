@@ -565,9 +565,9 @@ export const theme = {
       "raw": "-.05em"
     },
     "tight": {
-      "value": "-0025em",
+      "value": "-0.025em",
       "variable": "var(--letterSpacing-tight)",
-      "raw": "-0025em"
+      "raw": "-0.025em"
     },
     "normal": {
       "value": "0em",
@@ -575,9 +575,9 @@ export const theme = {
       "raw": "0em"
     },
     "wide": {
-      "value": "0025em",
+      "value": "0.025em",
       "variable": "var(--letterSpacing-wide)",
-      "raw": "0025em"
+      "raw": "0.025em"
     },
     "wider": {
       "value": ".05em",

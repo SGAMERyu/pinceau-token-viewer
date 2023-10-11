@@ -16,6 +16,8 @@ import FontToken from "./FontToken.vue";
 import ShadowToken from "./ShadowToken.vue";
 import FontWeightToken from "./FontWeightToken.vue";
 import FontSizeToken from "./FontSizeToken.vue";
+import LetterSpacingToken from "./LetterSpacingToken.vue";
+import LeadToken from "./LeadToken.vue";
 
 const TOKEN_COMPONENT_MAP: any = {
   color: ColorToken,
@@ -23,5 +25,7 @@ const TOKEN_COMPONENT_MAP: any = {
   shadow: ShadowToken,
   fontWeight: FontWeightToken,
   fontSize: FontSizeToken,
+  letterSpacing: LetterSpacingToken,
+  lead: LeadToken
 };
 </script>

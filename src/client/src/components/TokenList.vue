@@ -18,6 +18,7 @@ import FontWeightToken from "./FontWeightToken.vue";
 import FontSizeToken from "./FontSizeToken.vue";
 import LetterSpacingToken from "./LetterSpacingToken.vue";
 import LeadToken from "./LeadToken.vue";
+import RadiiTokenVue from "./RadiiToken.vue";
 
 const TOKEN_COMPONENT_MAP: any = {
   color: ColorToken,
@@ -26,6 +27,7 @@ const TOKEN_COMPONENT_MAP: any = {
   fontWeight: FontWeightToken,
   fontSize: FontSizeToken,
   letterSpacing: LetterSpacingToken,
-  lead: LeadToken
+  lead: LeadToken,
+  radii: RadiiTokenVue,
 };
 </script>

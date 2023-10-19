@@ -21,8 +21,14 @@ import LeadToken from "./LeadToken.vue";
 import RadiiToken from "./RadiiToken.vue";
 import SizeToken from "./SizeToken.vue";
 import SpaceToken from "./SpaceToken.vue";
+import BorderWidthToken from "./BorderWidthToken.vue";
+import OpacityToken from "./OpacityToken.vue";
+import ZIndexToken from "./ZindexToken.vue";
+import TransitionToken from "./TransitionToken.vue";
+import MediaToken from "./MediaToken.vue";
 
 const TOKEN_COMPONENT_MAP: any = {
+  media: MediaToken,
   color: ColorToken,
   font: FontToken,
   shadow: ShadowToken,
@@ -33,5 +39,9 @@ const TOKEN_COMPONENT_MAP: any = {
   radii: RadiiToken,
   size: SizeToken,
   space: SpaceToken,
+  borderWidth: BorderWidthToken,
+  opacity: OpacityToken,
+  zIndex: ZIndexToken,
+  transition: TransitionToken,
 };
 </script>

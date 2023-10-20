@@ -4,12 +4,12 @@
       <h2 class="token-name">{{ key }}</h2>
       <div class="w-full">
         <p
-          :style="{ fontFamily: token.raw as string }"
+          :style="{ fontFamily: token.value as string }"
           class="m-0 mb-4 text-lg"
         >
           The quick brown fox jumped over the lazy dog.
         </p>
-        <div class="color-title">{{ token.raw }}</div>
+        <div class="color-title">{{ token.value }}</div>
       </div>
     </div>
   </div>

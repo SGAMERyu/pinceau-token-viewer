@@ -3,14 +3,13 @@ export interface RPCFunctions {
 }
 
 export interface DesignToken {
-  raw: string;
   value: string;
   variable: string;
 }
 
 export interface TokenMode {
-  initial: string;
-  dark: string;
+  $initial: string;
+  $dark: string;
 }
 
 export interface DesignTokenMap {

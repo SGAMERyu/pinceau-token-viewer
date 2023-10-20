@@ -4,7 +4,7 @@
       v-for="(token, key) in shadowToken"
       class="w-24 h-24 rounded-lg bg-white flex justify-center items-center"
       :style="{
-        boxShadow: replaceVariableToken(refToken, token.raw as string),
+        boxShadow: replaceVariableToken(refToken, token.value as string),
       }"
     >
       <span>{{ key }}</span>

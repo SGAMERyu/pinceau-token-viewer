@@ -4,7 +4,7 @@
       <h2 class="token-name">{{ key }}</h2>
       <div class="w-full">
         <p
-          :style="{ lineHeight: token.raw as string }"
+          :style="{ lineHeight: token.value as string }"
           class="m-0 mb-4 text-lg"
         >
           So I started to walk into the water. I won't lie to you boys, I was
@@ -13,7 +13,7 @@
           or the kinship of all living things but I tell you Jerry at that
           moment, I was a marine biologist.
         </p>
-        <div class="token-value">line height {{ token.raw }}</div>
+        <div class="token-value">line height {{ token.value }}</div>
       </div>
     </div>
   </div>

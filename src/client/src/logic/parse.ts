@@ -6,9 +6,27 @@ export function parseColor(
   color: string | TokenMode
 ): string {
   if (typeof color === "string") return color;
-  const { initial } = color;
-  const modeColor = getProperty(token, initial.replace(/[{}]/g, ""));
+  const { $initial } = color;
+  if (!isTokenPath($initial)) return $initial;
+  const modeColor = getProperty(
+    token,
+    convertVariableToPath($initial).replace(/[{}]/g, "")
+  );
   return modeColor!.value as any as string;
+}
+
+function convertVariableToPath(input: string): string {
+  const regex = /var\(--([^)]+)\)/g;
+  const result = input.replace(regex, (...matches) => {
+    const variable = matches[1];
+    const path = variable.replace(/-/g, ".");
+    return path;
+  });
+  return result;
+}
+
+function isTokenPath(token: string) {
+  return token.startsWith("var(--");
 }
 
 function extractValuesFromString(input: string): string[] {

@@ -4,12 +4,12 @@
       <h2 class="token-name">{{ key }}</h2>
       <div class="w-full">
         <p
-          :style="{ letterSpacing: token.raw as string }"
+          :style="{ letterSpacing: token.value as string }"
           class="m-0 mb-4 text-lg"
         >
           The quick brown fox jumped over the lazy dog.
         </p>
-        <div class="color-title">letter spacing is {{ token.raw }}</div>
+        <div class="color-title">letter spacing is {{ token.value }}</div>
       </div>
     </div>
   </div>

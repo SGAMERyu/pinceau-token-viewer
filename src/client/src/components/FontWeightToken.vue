@@ -4,7 +4,10 @@
       v-for="(token, key) in fontWeightToken"
       class="flex justify-center items-center flex-col"
     >
-      <TypeFace :style="{ fontWeight: token.raw }" class="text-2xl"></TypeFace>
+      <TypeFace
+        :style="{ fontWeight: token.value }"
+        class="text-2xl"
+      ></TypeFace>
       <span class="text-lg mt-4">{{ key }}</span>
     </div>
   </div>

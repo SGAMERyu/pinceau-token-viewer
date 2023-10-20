@@ -63,7 +63,7 @@ export default function PluginPinceauViewer(options: Options) {
   }
 
   async function findPinceauDesignToken() {
-    const deignTokenPath = join(designTokenDir, "index.ts");
+    const deignTokenPath = join(designTokenDir, "theme.ts");
     const content = await readFile(deignTokenPath, "utf-8");
     const result = {};
     let treeNodeNames: string[] = [];
@@ -106,6 +106,7 @@ export default function PluginPinceauViewer(options: Options) {
         return false;
       },
     });
+    console.log(result);
     return result;
   }
 

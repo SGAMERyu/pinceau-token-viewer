@@ -4,16 +4,16 @@
       v-for="(token, key) in shadowToken"
       class="w-24 h-24 rounded-lg bg-white flex justify-center items-center"
       :style="{
-        boxShadow: replaceVariableToken(refToken, token.value as string),
+        boxShadow: replaceVariableToTokenValue(refToken, token.value),
       }"
     >
-      <span>{{ key }}</span>
+      <span>{{ key }} </span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { refToken, replaceVariableToken } from "../logic";
+import { refToken, replaceVariableToTokenValue } from "../logic";
 
 const shadowToken = computed(() => {
   return refToken.value.shadow || {};

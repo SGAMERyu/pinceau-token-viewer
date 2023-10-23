@@ -8,53 +8,37 @@ export function parseColor(
   if (typeof color === "string") return color;
   const { $initial } = color;
   if (!isTokenPath($initial)) return $initial;
-  const modeColor = getProperty(
-    token,
-    convertVariableToPath($initial).replace(/[{}]/g, "")
-  );
-  return modeColor!.value as any as string;
-}
-
-function convertVariableToPath(input: string): string {
-  const regex = /var\(--([^)]+)\)/g;
-  const result = input.replace(regex, (...matches) => {
-    const variable = matches[1];
-    const path = variable.replace(/-/g, ".");
-    return path;
-  });
-  return result;
+  return replaceVariableToTokenValue(token, $initial);
 }
 
 function isTokenPath(token: string) {
   return token.startsWith("var(--");
 }
 
-function extractValuesFromString(input: string): string[] {
-  const regex = /\{([^}]+)\}/g;
+function extractVariables(input: string) {
+  const regex = /var\(([^)]+)\)/g;
   const matches = input.match(regex);
-  if (matches) {
-    return matches.map((match) => match.slice(1, -1));
-  }
-  return [];
+  const variables = (matches || []).map((match) => match.slice(4, -1));
+  return variables;
 }
 
-export function replaceVariableToken(
+function convertVariableToPath(input: string) {
+  const convertedPath = input.replaceAll("--", "").replaceAll("-", ".");
+  return convertedPath;
+}
+
+export function replaceVariableToTokenValue(
   tokenMap: DesignTokenMap,
   tokenValue: string
 ) {
-  const values = extractValuesFromString(tokenValue);
-  const tokenList = values.map((dotProp) => {
-    return {
-      dotProp,
-      propValue: getProperty(tokenMap, dotProp)!.value,
-    };
-  });
-  tokenList.forEach(({ dotProp, propValue }) => {
+  const variables = extractVariables(tokenValue);
+  if (variables.length === 0) return tokenValue;
+  variables.forEach((variable) => {
+    const tokenPath = convertVariableToPath(variable);
     tokenValue = tokenValue.replaceAll(
-      `{${dotProp}}`,
-      propValue as any as string
+      `var(${variable})`,
+      getProperty(tokenMap, tokenPath)!.value as any as string
     );
   });
-
   return tokenValue;
 }

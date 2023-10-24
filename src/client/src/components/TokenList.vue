@@ -26,6 +26,7 @@ import OpacityToken from "./OpacityToken.vue";
 import ZIndexToken from "./ZindexToken.vue";
 import EaseToken from "./EaseToken.vue";
 import MediaToken from "./MediaToken.vue";
+import TextToken from "./TextToken.vue";
 
 const TOKEN_COMPONENT_MAP: any = {
   media: MediaToken,
@@ -42,6 +43,7 @@ const TOKEN_COMPONENT_MAP: any = {
   borderWidth: BorderWidthToken,
   opacity: OpacityToken,
   zIndex: ZIndexToken,
+  text: TextToken,
   ease: EaseToken,
 };
 </script>
